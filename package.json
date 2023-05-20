@@ -1,0 +1,21 @@
+{
+  "name": "superduper-squad",
+  "version": "1.0.0",
+  "description": "superduper squad - ai builder",
+  "main": "index.js",
+  "author": "Erik Landvall",
+  "scripts": {
+    "test": "syntax-check",
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "@superhero/core.eventsource": "3.6.0"
+  },
+  "devDependencies": {
+    "@superhero/syntax-check": "0.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/adamodev/eventsource-superduper.git"
+  }
+}
