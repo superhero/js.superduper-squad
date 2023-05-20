@@ -16,6 +16,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/adamodev/eventsource-superduper.git"
+    "url": "https://github.com/superhero/js.superduper-squad"
   }
 }
