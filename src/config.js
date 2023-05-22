@@ -11,10 +11,9 @@ module.exports =
     },
     locator:
     {
-      'domain/*'                          : __dirname + '/domain/*',
-      'infrastructure/downstream/*'       : __dirname + '/infrastructure/downstream/*',
-      'infrastructure/upstream/*'         : __dirname + '/infrastructure/upstream/*',
-      'infrastructure/bigquery/bootstrap' : __dirname + '/infrastructure/bigquery/bootstrap'
+      'superduper-squad/*'          : __dirname + '/domain/*',
+      'infrastructure/downstream/*' : __dirname + '/infrastructure/downstream/*',
+      'infrastructure/upstream/*'   : __dirname + '/infrastructure/upstream/*'
     },
     schema:
     {

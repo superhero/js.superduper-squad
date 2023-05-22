@@ -1,5 +1,5 @@
 /**
- * @memberof SuperduperSquad
+ * @memberof SuperduperSquad.Domain
  */
 class ProjectManager
 {
