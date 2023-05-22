@@ -1,14 +1,14 @@
 const
-  ProjectManager      = require('.'),
+  Manager             = require('.'),
   LocatorConstituent  = require('superhero/core/locator/constituent')
 
 /**
  * @memberof SuperduperSquad.Domain
  */
-class ProjectManagerLocator extends LocatorConstituent
+class ManagerLocator extends LocatorConstituent
 {
   /**
-   * @returns {ProjectManager}
+   * @returns {Manager}
    */
   locate()
   {
@@ -17,8 +17,8 @@ class ProjectManagerLocator extends LocatorConstituent
       eventsource = this.locator.locate('eventsource/client'),
       schema      = this.locator.locate('core/schema/composer')
 
-    return new ProjectManager(eventsource, schema, actor)
+    return new Manager(eventsource, schema, actor)
   }
 }
 
-module.exports = ProjectManagerLocator
+module.exports = ManagerLocator

@@ -4,10 +4,6 @@
  */
 const schema =
 {
-  'id':
-  {
-    'type' : 'string'
-  },
   'team':
   {
     'type'        : 'schema',

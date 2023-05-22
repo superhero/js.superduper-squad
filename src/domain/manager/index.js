@@ -1,7 +1,7 @@
 /**
  * @memberof SuperduperSquad.Domain
  */
-class ProjectManager
+class Manager
 {
   constructor(eventsource, schema, actor)
   {
@@ -44,4 +44,4 @@ class ProjectManager
   }
 }
 
-module.exports = ProjectManager
+module.exports = Manager
