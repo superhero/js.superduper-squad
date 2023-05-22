@@ -35,7 +35,7 @@ module.exports =
           [
             {
               role    : 'system',
-              message : 'You adopt domain driven design principles'
+              content : 'You adopt domain driven design principles'
             }
           ],
           team:
@@ -47,7 +47,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a business analyst'
+                  content : 'You are a business analyst'
                 },
               ],
             },
@@ -58,7 +58,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are team lead'
+                  content : 'You are team lead'
                 }
               ],
             },
@@ -75,7 +75,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the lead architect'
+                  content : 'You are the lead architect'
                 }
               ]
             },
@@ -86,7 +86,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the api architect'
+                  content : 'You are the api architect'
                 }
               ]
             },
@@ -97,7 +97,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the domain architect'
+                  content : 'You are the domain architect'
                 }
               ]
             },
@@ -108,7 +108,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the the process architect'
+                  content : 'You are the the process architect'
                 }
               ]
             },
@@ -119,7 +119,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the infrastructure architect'
+                  content : 'You are the infrastructure architect'
                 }
               ]
             },
@@ -139,7 +139,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are the domain ambassador'
+                  content : 'You are the domain ambassador'
                 }
               ]
             },
@@ -150,7 +150,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a node.js developer'
+                  content : 'You are a node.js developer'
                 }
               ]
             },
@@ -161,7 +161,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a node.js developer'
+                  content : 'You are a node.js developer'
                 }
               ]
             },
@@ -172,7 +172,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a node.js developer'
+                  content : 'You are a node.js developer'
                 }
               ]
             },
@@ -183,7 +183,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a node.js developer'
+                  content : 'You are a node.js developer'
                 }
               ]
             },
@@ -199,7 +199,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a DevOps developer'
+                  content : 'You are a DevOps developer'
                 }
               ]
             },
@@ -210,7 +210,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You work with docker swarm'
+                  content : 'You work with docker swarm'
                 }
               ]
             },
@@ -221,7 +221,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You do monitoring'
+                  content : 'You do monitoring'
                 }
               ]
             },
@@ -237,7 +237,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a dba'
+                  content : 'You are a dba'
                 }
               ]
             },
@@ -248,11 +248,11 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You optimize write operations'
+                  content : 'You optimize write operations'
                 },
                 {
                   role    : 'system',
-                  message : 'You work with redis'
+                  content : 'You work with redis'
                 }
               ]
             },
@@ -263,11 +263,11 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You optimize read operations'
+                  content : 'You optimize read operations'
                 },
                 {
                   role    : 'system',
-                  message : 'You work with MySql'
+                  content : 'You work with MySql'
                 }
               ]
             },
@@ -282,7 +282,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You are a technical writer'
+                  content : 'You are a technical writer'
                 }
               ]
             },
@@ -293,7 +293,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You work with swaggor'
+                  content : 'You work with swaggor'
                 }
               ]
             },
@@ -304,7 +304,7 @@ module.exports =
               [
                 {
                   role    : 'system',
-                  message : 'You work with doctype'
+                  content : 'You work with doctype'
                 }
               ]
             },
@@ -315,65 +315,149 @@ module.exports =
             // ...
             'expanding specifications':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations:
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Expand on the specifications provided'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['team-lead']
             },
             'clerifying specifications':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Make sure that the new specifications are aligned with expectations'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['persona']
             },
             'sugested technical approach':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'sugest a technical approach'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['team-lead', 'architect-lead']
             },
             'refine specifications':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Make sure that the sugested technical approach is aligned with expectations'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['persona']
             },
             'composed story book':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'compose a story book'
+                  },
+                  {
+                    'role'    : 'message',
+                    'content' : 'each story should reflect a use case described in the specification'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['team-lead', 'architect-lead']
             },
             'refine story book':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Make sure that the sugested storybook is aligned with expectations'
+                  }
+                ]
+              ],
+              alphaActorId: 'ba',
+              betaActorIds: ['persona']
             },
             // distribute and perform work
             // ...
             'composed model':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Compose the interfaces of the solution'
+                  }
+                ]
+              ],
+              alphaActorId: 'team-lead',
+              betaActorIds: ['architect-lead']
             },
             'implemented model':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Implement a solution based on the composed interfaces'
+                  }
+                ]
+              ],
+              alphaActorId: 'team-lead',
+              betaActorIds: ['domain-ambassador']
             },
-            'documented implementation':
+            'implemented documentation':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Implement the documentation of the solution'
+                  }
+                ]
+              ],
+              alphaActorId: 'team-lead',
+              betaActorIds: ['technical-writer']
             },
             'composed qa report':
             {
-              expectations: [],
-              alphaActorId: '',
-              betaActorIds: []
+              expectations: 
+              [
+                [
+                  {
+                    'role'    : 'message',
+                    'content' : 'Express a QA report of the solution'
+                  }
+                ]
+              ],
+              alphaActorId: 'team-lead',
+              betaActorIds: ['qa']
             }
           }
         }
