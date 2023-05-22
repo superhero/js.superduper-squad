@@ -308,6 +308,79 @@ module.exports =
                 }
               ]
             },
+            'qa':
+            {
+              team: 
+              [
+                'qa-api',
+                'qa-domain',
+                'qa-process',
+                'qa-infrastructure',
+                'qa-documentation'
+              ],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA'
+                }
+              ]
+            },
+            'qa-api':
+            {
+              team: [],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA in the API layer'
+                }
+              ]
+            },
+            'qa-domain':
+            {
+              team: [],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA in the domain layer'
+                }
+              ]
+            },
+            'qa-process':
+            {
+              team: [],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA in the process layer'
+                }
+              ]
+            },
+            'qa-infrastructure':
+            {
+              team: [],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA in the infrastructure layer'
+                }
+              ]
+            },
+            'qa-documentation':
+            {
+              team: [],
+              indoctronation:
+              [
+                {
+                  role    : 'system',
+                  content : 'You work as QA with documentation'
+                }
+              ]
+            },
           },
           meetings:
           {
