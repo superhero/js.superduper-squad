@@ -3,12 +3,12 @@
  */
 class Actor
 {
-  constructor(ai, schema, eventsource)
+  constructor(ai, schema, eventsource, manager)
   {
-    this.ai             = ai
-    this.schema         = schema
-    this.eventsource    = eventsource
-    this.projectManager = projectManager
+    this.ai           = ai
+    this.schema       = schema
+    this.eventsource  = eventsource
+    this.manager      = manager
   }
 
   /**
@@ -17,8 +17,8 @@ class Actor
   async meet(meeting)
   {
     const
-      alpha       = await this.projectManager.findActor(meeting.alphaActorId),
-      betas       = await Promise.all(meeting.betaActorIds.map((id) => this.projectManager.findActor(id))),
+      alpha       = await this.manager.findActor(meeting.alphaActorId),
+      betas       = await Promise.all(meeting.betaActorIds.map((id) => this.manager.findActor(id))),
       conclusions = []
 
     for(const reasoning of meeting.expectations)
@@ -88,7 +88,7 @@ class Actor
   async reason(alpha, reasoning)
   {
     const 
-      team        = await Promise.all(actor.team.map((id) => this.projectManager.findActor(id))),
+      team        = await Promise.all(actor.team.map((id) => this.manager.findActor(id))),
       conclusions = []
 
     for(const beta of team)
@@ -107,7 +107,7 @@ class Actor
    */
   async conclude(actor, topics)
   {
-    return await this.ai.conclude([ ...actor.indoctronation, ...topics ])
+    return await this.ai.conclude([ ...actor.indoctrination, ...topics ])
   }
   
   /**

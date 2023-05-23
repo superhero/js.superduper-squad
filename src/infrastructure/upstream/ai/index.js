@@ -1,5 +1,5 @@
 /**
- * @memberof SuperduperSquad.Infrastructure
+ * @memberof SuperduperSquad.Infrastructure.Upstream
  */
 class Ai
 {
@@ -16,7 +16,7 @@ class Ai
   async conclude(messages)
   {
     const
-      url     = 'https://api.openai.com/v1/engines/davinci-codex/completions',
+      url  = 'https://api.openai.com/v1/engines/davinci-codex/completions',
       data = 
       {
         // the input...

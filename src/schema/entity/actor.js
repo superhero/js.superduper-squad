@@ -11,7 +11,7 @@ const schema =
     'trait'       : 'id',
     'collection'  : true
   },
-  'indoctronation':
+  'indoctrination':
   {
     'type'        : 'schema',
     'schema'      : 'SuperduperSquad/Schema/Entity/Topic',

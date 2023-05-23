@@ -31,7 +31,7 @@ module.exports =
       {
         'default':
         {
-          indoctronation:
+          indoctrination:
           [
             {
               role    : 'system',
@@ -43,7 +43,7 @@ module.exports =
             'ba': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -54,7 +54,7 @@ module.exports =
             'team-lead': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -71,7 +71,7 @@ module.exports =
                 'architect-process',
                 'architect-infrastructure'
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -82,7 +82,7 @@ module.exports =
             'architect-api': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -93,7 +93,7 @@ module.exports =
             'architect-domain': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -104,7 +104,7 @@ module.exports =
             'architect-process': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -115,7 +115,7 @@ module.exports =
             'architect-infrastructure': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -135,7 +135,7 @@ module.exports =
                 'dev-ops',
                 'dba',
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -146,7 +146,7 @@ module.exports =
             'backend-api': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -157,7 +157,7 @@ module.exports =
             'backend-domain': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -168,7 +168,7 @@ module.exports =
             'backend-process': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -179,7 +179,7 @@ module.exports =
             'backend-infrastructure': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -195,7 +195,7 @@ module.exports =
                 'dev-ops-docker',
                 'dev-ops-monitoring'
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -206,7 +206,7 @@ module.exports =
             'dev-ops-docker': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -217,7 +217,7 @@ module.exports =
             'dev-ops-monitoring': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -233,7 +233,7 @@ module.exports =
                 'dba-writer',
                 'dba-reader'
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -244,7 +244,7 @@ module.exports =
             'dba-writer': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -259,7 +259,7 @@ module.exports =
             'dba-reader': 
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -278,7 +278,7 @@ module.exports =
                 'technical-writer-swaggor',
                 'technical-writer-doctype',
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -289,7 +289,7 @@ module.exports =
             'technical-writer-swaggor':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -300,7 +300,7 @@ module.exports =
             'technical-writer-doctype':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -318,7 +318,7 @@ module.exports =
                 'qa-infrastructure',
                 'qa-documentation'
               ],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -329,7 +329,7 @@ module.exports =
             'qa-api':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -340,7 +340,7 @@ module.exports =
             'qa-domain':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -351,7 +351,7 @@ module.exports =
             'qa-process':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -362,7 +362,7 @@ module.exports =
             'qa-infrastructure':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',
@@ -373,7 +373,7 @@ module.exports =
             'qa-documentation':
             {
               team: [],
-              indoctronation:
+              indoctrination:
               [
                 {
                   role    : 'system',

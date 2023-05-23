@@ -1,14 +1,14 @@
 const
-  Actor               = require('.'),
+  Manager             = require('.'),
   LocatorConstituent  = require('superhero/core/locator/constituent')
 
 /**
  * @memberof SuperduperSquad.Domain
  */
-class ActorLocator extends LocatorConstituent
+class ManagerLocator extends LocatorConstituent
 {
   /**
-   * @returns {Actor}
+   * @returns {Manager}
    */
   locate()
   {
@@ -16,10 +16,11 @@ class ActorLocator extends LocatorConstituent
       ai          = this.locator.locate('infrastructure/upstream/ai'),
       eventsource = this.locator.locate('eventsource/client'),
       schema      = this.locator.locate('core/schema/composer'),
-      manager     = this.locator.locate('superduper-squad/manager')
+      manager     = this.locator.locate('superduper-squad/manager'),
+      cli         = this.locator.locate('infrastructure/downstream/cli')
 
-    return new Actor(ai, schema, eventsource, manager)
+    return new Manager(ai, schema, eventsource, manager, cli)
   }
 }
 
-module.exports = ActorLocator
+module.exports = ManagerLocator

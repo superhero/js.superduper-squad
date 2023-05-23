@@ -19,27 +19,43 @@ class Manager
     return actor
   }
 
-  async createActor(indoctronation, team = [])
+  async createActor(projectId, actorId, indoctrination, team = [])
   {
     const
-      domain  = 'process/create-actor', 
-      name    = 'actor created', 
-      data    = this.schema.compose('superduper-squad/schema/entity/actor', { indoctronation, team })
+      domain    = 'process/create-actor', 
+      pid       = projectId + '.' + actorId,
+      name      = 'actor created',
+      hasEvent  = await this.eventsource.hasEvent(domain, pid, name)
 
-    const id = await this.eventsource.write({ domain, name, data })
-    return id
+    if(hasEvent)
+    {
+      return
+    }
+    else
+    {
+      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
+      await this.eventsource.write({ domain, pid, name, data })
+    }
   }
 
-  createProject(playbook)
+  createProject(playbook, projectId)
   {
-    return this.schema.compose('superduper-squad/schema/entity/project', playbook)
+    const id = projectId || this.eventsource.mapper.toProcessId()
+
+    for(const actorId of playbook.team)
+    {
+      const a = playbook.team[actorId]
+      await this.createActor(id, actorId, a.indoctrination, a.team)
+    }
+
+    return this.schema.compose('superduper-squad/schema/entity/project', { ...playbook, id })
   }
   
   async startProject(project)
   {
     for(const meeting of project.meetings)
     {
-      const conclusion = await this.actor.meet(meeting)
+      await this.actor.meet(project.id, meeting)
     }
   }
 }
