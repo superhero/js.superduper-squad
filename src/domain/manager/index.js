@@ -10,11 +10,13 @@ class Manager
     this.actor        = actor
   }
 
-  async findActor(id)
+  async findActor(projectId, actorId)
   {
     const 
-      event = await this.eventsource.readEventById(id),
-      actor = this.schema.compose('superduper-squad/schema/entity/actor', event.data)
+      domain  = 'process/create-actor',
+      pid     = projectId + '.' + actorId
+      event   = await this.eventsource.readState(domain, pid),
+      actor   = this.schema.compose('superduper-squad/schema/entity/actor', event.data)
 
     return actor
   }
@@ -38,7 +40,7 @@ class Manager
     }
   }
 
-  createProject(playbook, projectId)
+  async createProject(playbook, projectId)
   {
     const id = projectId || this.eventsource.mapper.toProcessId()
 
@@ -51,12 +53,16 @@ class Manager
     return this.schema.compose('superduper-squad/schema/entity/project', { ...playbook, id })
   }
   
-  async startProject(project)
+  async startProject(project, messageChain)
   {
     for(const meeting of project.meetings)
     {
-      await this.actor.meet(project.id, meeting)
+      messageChain = await this.actor.meet(project.id, meeting, messageChain)
     }
+
+    // action loop - actor.act()
+
+    return messageChain
   }
 }
 

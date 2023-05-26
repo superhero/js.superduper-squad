@@ -5,10 +5,6 @@ module.exports =
 {
   core:
   {
-    bootstrap:
-    {
-      'bigquery' : 'infrastructure/bigquery/bootstrap'
-    },
     locator:
     {
       'superduper-squad/*'          : __dirname + '/domain/*',
@@ -29,15 +25,8 @@ module.exports =
     {
       playbooks:
       {
-        'default':
+        'superhero-tool-chain':
         {
-          indoctrination:
-          [
-            {
-              role    : 'system',
-              content : 'You adopt domain driven design principles'
-            }
-          ],
           team:
           {
             'ba': 
@@ -49,6 +38,10 @@ module.exports =
                   role    : 'system',
                   content : 'You are a business analyst'
                 },
+                {
+                  role    : 'system',
+                  content : 'You adopt domain driven design principles'
+                }
               ],
             },
             'team-lead': 
@@ -547,7 +540,7 @@ module.exports =
         {
           headers:
           {
-            'Authorization' : `Bearer ???`,
+            'Authorization' : `Bearer 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`,
             'Content-Type'  : 'application/json'
           }
         }

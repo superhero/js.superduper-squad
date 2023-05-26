@@ -14,19 +14,20 @@ class Actor
   /**
    * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
    */
-  async meet(meeting)
+  async meet(projectId, meeting, previousConclusion)
   {
     const
-      alpha       = await this.manager.findActor(meeting.alphaActorId),
-      betas       = await Promise.all(meeting.betaActorIds.map((id) => this.manager.findActor(id))),
-      conclusions = []
+      alpha         = await this.manager.findActor(projectId, meeting.alphaActorId),
+      betas         = await Promise.all(meeting.betaActorIds.map((actorId) => this.manager.findActor(projectId, actorId))),
+      conclusions   = [],
+      previousTopic = composeTopic('message', previousConclusion)
 
     for(const reasoning of meeting.expectations)
     {
       const reasoningConclusions = []
       for(const beta of betas)
       {
-        const conclusion = await this.discuss(reasoning, alpha, beta)
+        const conclusion = await this.discuss([...reasoning, previousTopic], alpha, beta)
         reasoningConclusions.push(conclusion)
       }
 
@@ -85,10 +86,10 @@ class Actor
    * @param {SuperduperSquad.Schema.Entity.Actor}     alpha 
    * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
    */
-  async reason(alpha, reasoning)
+  async reason(projectId, alpha, reasoning)
   {
     const 
-      team        = await Promise.all(actor.team.map((id) => this.manager.findActor(id))),
+      team        = await Promise.all(actor.team.map((actorId) => this.manager.findActor(projectId, actorId))),
       conclusions = []
 
     for(const beta of team)

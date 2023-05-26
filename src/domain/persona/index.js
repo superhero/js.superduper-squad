@@ -5,10 +5,22 @@ const Actor = require('../actor')
  */
 class Persona extends Actor
 {
-  constructor(ai, schema, eventsource, manager, cli)
+  constructor(ai, schema, eventsource, manager, cli, playbooks)
   {
     this.super(ai, schema, eventsource, manager)
-    this.cli = cli
+
+    this.cli        = cli
+    this.playbooks  = playbooks
+  }
+
+  async whatDoYouWant()
+  {
+    const 
+      iWant           = await this.cli.question('What do you want?'),
+      project         = this.manager.createProject(this.playbooks['superhero-tool-chain']),
+      thatsWhatYouGet = await this.manager.startProject(project, iWant)
+
+    return thatsWhatYouGet
   }
   
   /**

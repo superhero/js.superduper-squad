@@ -4,6 +4,16 @@
  */
 const schema =
 {
+  'id':
+  {
+    'type'        : 'string'
+  },
+  'team':
+  {
+    'type'        : 'schema',
+    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'collection'  : true
+  },
   'meetings':
   {
     'type'        : 'schema',
