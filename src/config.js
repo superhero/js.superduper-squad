@@ -439,7 +439,7 @@ module.exports =
         {
           headers:
           {
-            'Authorization' : `Bearer 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`,
+            'Authorization' : `Bearer ` + process.env.AI_TOKEN,
             'Content-Type'  : 'application/json'
           }
         }
