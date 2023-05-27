@@ -3,42 +3,94 @@
  */
 class Actor
 {
-  constructor(ai, schema, eventsource, manager)
+  constructor(ai, schema, eventsource)
   {
     this.ai           = ai
     this.schema       = schema
     this.eventsource  = eventsource
-    this.manager      = manager
   }
 
   /**
+   * @param {string} projectId 
    * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
+   * @param {string} previousConclusion 
    */
   async meet(projectId, meeting, previousConclusion)
   {
     const
-      alpha         = await this.manager.findActor(projectId, meeting.alphaActorId),
-      betas         = await Promise.all(meeting.betaActorIds.map((actorId) => this.manager.findActor(projectId, actorId))),
+      alpha         = await this.findActor(projectId, meeting.alphaActorId),
+      betas         = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId))),
       conclusions   = [],
       previousTopic = composeTopic('message', previousConclusion)
 
-    for(const reasoning of meeting.expectations)
+    for(const expectation of meeting.expectations)
     {
-      const reasoningConclusions = []
+      const expectationConclusions = []
       for(const beta of betas)
       {
-        const conclusion = await this.discuss([...reasoning, previousTopic], alpha, beta)
-        reasoningConclusions.push(conclusion)
+        const conclusion = await this.discuss([...expectation, previousTopic], alpha, beta)
+        expectationConclusions.push(conclusion)
       }
 
-      // I feel like I'm loosing out on these conclusions...
-      // if there is a discussion then the problem is solved... or potentially at least...
-      const conclusion = await this.conclude(alpha, reasoningConclusions)
+      const conclusion = await this.conclude(alpha, expectationConclusions)
+      expectation.conclusion = conclusion
       conclusions.push(conclusion)
     }
 
     const conclusion = await this.conclude(alpha, conclusions)
     return conclusion
+  }
+
+  /**
+   * @param {string} projectId 
+   * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
+   * @param {string} feedback 
+   */
+  async feedback(projectId, meeting, feedback)
+  {
+    const
+      alpha           = await this.findActor(projectId, meeting.alphaActorId),
+      feedbackMessage = composeTopic('message', feedback)
+
+    for(const expectation of meeting.expectations)
+    {
+      const 
+        conclusionAssistent = composeTopic('assistent', expectation.conclusion),
+        feedbackConclusion  = await this.conclude(alpha, [ ...expectation.reasons, conclusionAssistent, feedbackMessage ])
+
+      expectation.feedback            = feedback
+      expectation.feedbackConclusion  = feedbackConclusion
+    }
+  }
+
+  async findActor(projectId, actorId)
+  {
+    const 
+      domain  = 'process/create-actor',
+      pid     = projectId + '.' + actorId,
+      event   = await this.eventsource.readState(domain, pid),
+      actor   = this.schema.compose('superduper-squad/schema/entity/actor', event.data)
+
+    return actor
+  }
+
+  async createActor(projectId, actorId, indoctrination, team = [])
+  {
+    const
+      domain    = 'process/create-actor', 
+      pid       = projectId + '.' + actorId,
+      name      = 'actor created',
+      hasEvent  = await this.eventsource.hasEvent(domain, pid, name)
+
+    if(hasEvent)
+    {
+      return
+    }
+    else
+    {
+      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
+      await this.eventsource.write({ domain, pid, name, data })
+    }
   }
 
   /**
@@ -89,7 +141,7 @@ class Actor
   async reason(projectId, alpha, reasoning)
   {
     const 
-      team        = await Promise.all(actor.team.map((actorId) => this.manager.findActor(projectId, actorId))),
+      team        = await Promise.all(actor.team.map((actorId) => this.findActor(projectId, actorId))),
       conclusions = []
 
     for(const beta of team)

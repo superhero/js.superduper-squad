@@ -3,66 +3,49 @@
  */
 class Manager
 {
-  constructor(eventsource, schema, actor)
+  constructor(schema, actor, persona)
   {
-    this.eventsource  = eventsource
-    this.schema       = schema
-    this.actor        = actor
+    this.schema   = schema
+    this.actor    = actor
+    this.persona  = persona
   }
 
-  async findActor(projectId, actorId)
-  {
-    const 
-      domain  = 'process/create-actor',
-      pid     = projectId + '.' + actorId
-      event   = await this.eventsource.readState(domain, pid),
-      actor   = this.schema.compose('superduper-squad/schema/entity/actor', event.data)
-
-    return actor
-  }
-
-  async createActor(projectId, actorId, indoctrination, team = [])
+  async init()
   {
     const
-      domain    = 'process/create-actor', 
-      pid       = projectId + '.' + actorId,
-      name      = 'actor created',
-      hasEvent  = await this.eventsource.hasEvent(domain, pid, name)
+      playbook    = await this.persona.getPlaybook(),
+      project     = await this.createProject(playbook),
+      initMessage = await this.persona.init(),
+      conclusion  = await this.startProject(project, initMessage)
 
-    if(hasEvent)
-    {
-      return
-    }
-    else
-    {
-      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
-      await this.eventsource.write({ domain, pid, name, data })
-    }
+    // action loop - actor.act()
+
+    return conclusion
   }
 
   async createProject(playbook, projectId)
   {
-    const id = projectId || this.eventsource.mapper.toProcessId()
+    const id = projectId || Date.now().toString(32)
 
     for(const actorId of playbook.team)
     {
       const a = playbook.team[actorId]
-      await this.createActor(id, actorId, a.indoctrination, a.team)
+      await this.actor.createActor(id, actorId, a.indoctrination, a.team)
     }
 
     return this.schema.compose('superduper-squad/schema/entity/project', { ...playbook, id })
   }
   
-  async startProject(project, messageChain)
+  async startProject(project, conclusion)
   {
     for(const meeting of project.meetings)
     {
-      messageChain = await this.actor.meet(project.id, meeting, messageChain)
+      conclusion = await this.actor.meet(project.id, meeting, conclusion)
+      const feedback = await this.persona.feedback(conclusion)
+      await this.actor.feedback(project.id, meeting, feedback)
     }
 
-    // action loop - actor.act()
-
-    return messageChain
+    return conclusion
   }
 }
 

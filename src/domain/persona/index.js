@@ -1,43 +1,48 @@
-const Actor = require('../actor')
-
 /**
  * @memberof SuperduperSquad.Domain
  */
-class Persona extends Actor
+class Persona
 {
-  constructor(ai, schema, eventsource, manager, cli, playbooks)
+  constructor(actor, cli, playbooks)
   {
-    this.super(ai, schema, eventsource, manager)
-
+    this.actor      = actor
     this.cli        = cli
     this.playbooks  = playbooks
   }
 
-  async whatDoYouWant()
+  async getPlaybook()
   {
-    const 
-      iWant           = await this.cli.question('What do you want?'),
-      project         = this.manager.createProject(this.playbooks['superhero-tool-chain']),
-      thatsWhatYouGet = await this.manager.startProject(project, iWant)
+    const
+      playbookNames = Object.keys(this.playbooks),
+      question      = await this.composeQuestion('what playbook do you want to use?'),
+      playbook      = await this.cli.question(question, playbookNames)
 
-    return thatsWhatYouGet
+    return playbook
   }
-  
+
   /**
-   * @param {SuperduperSquad.Schema.Entity.Actor}     alpha 
+   * @param {string} message 
+   * @returns {string} 
+   */
+  async composeQuestion(message)
+  {
+    const
+      actor     = this.actor.findActor('persona'),
+      topic     = this.actor.composeTopic('message', message),
+      reasoning = { reasons:[ topic ] },
+      question  = await this.actor.composeQuestion(reasoning, actor)
+    
+    return question
+  }
+
+  /**
    * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
    */
-  async reason(alpha, reasoning)
+  async feedback(conclusion)
   {
-    const 
-      conclusion  = await super.reason(alpha, reasoning),
-      topic       = this.composeTopic('message', conclusion)
-
-    reasoning.reasons.push(topic)
-
     const
-      question   = await this.composeQuestion(reasoning, actor),
-      answer     = await this.cli(question)
+      question  = await this.composeQuestion(conclusion),
+      answer    = await this.cli(question)
 
     return answer
   }

@@ -7,19 +7,19 @@ const schema =
   'expectations':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Reasoning',
+    'schema'      : 'superduper-squad/schema/entity/reasoning',
     'collection'  : true
   },
   'alphaActorId':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id'
   },
   'betaActorIds':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
     'collection'  : true
   }

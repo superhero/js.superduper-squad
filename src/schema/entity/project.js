@@ -11,13 +11,13 @@ const schema =
   'team':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'collection'  : true
   },
   'meetings':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Meeting',
+    'schema'      : 'superduper-squad/schema/entity/meeting',
     'collection'  : true
   }
 }

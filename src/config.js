@@ -25,7 +25,7 @@ module.exports =
     {
       playbooks:
       {
-        'superhero-tool-chain':
+        'Superhero Tool Chain':
         {
           team:
           {
@@ -34,14 +34,8 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a business analyst'
-                },
-                {
-                  role    : 'system',
-                  content : 'You adopt domain driven design principles'
-                }
+                'You are a business analyst',
+                'You adopt domain driven design principles'
               ],
             },
             'team-lead': 
@@ -49,10 +43,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are team lead'
-                }
+                'You are team lead'
               ],
             },
             'architect-lead': 
@@ -66,10 +57,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the lead architect'
-                }
+                'You are the lead architect'
               ]
             },
             'architect-api': 
@@ -77,10 +65,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the api architect'
-                }
+                'You are the api architect'
               ]
             },
             'architect-domain': 
@@ -88,10 +73,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the domain architect'
-                }
+                'You are the domain architect'
               ]
             },
             'architect-process': 
@@ -99,10 +81,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the the process architect'
-                }
+                'You are the the process architect'
               ]
             },
             'architect-infrastructure': 
@@ -110,10 +89,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the infrastructure architect'
-                }
+                'You are the infrastructure architect'
               ]
             },
             // ...
@@ -130,10 +106,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are the domain ambassador'
-                }
+                'You are the domain ambassador'
               ]
             },
             'backend-api': 
@@ -141,10 +114,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a node.js developer'
-                }
+                'You are a node.js developer'
               ]
             },
             'backend-domain': 
@@ -152,10 +122,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a node.js developer'
-                }
+                'You are a node.js developer'
               ]
             },
             'backend-process': 
@@ -163,10 +130,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a node.js developer'
-                }
+                'You are a node.js developer'
               ]
             },
             'backend-infrastructure': 
@@ -174,10 +138,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a node.js developer'
-                }
+                'You are a node.js developer'
               ]
             },
             // dev-ops...
@@ -190,10 +151,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a DevOps developer'
-                }
+                'You are a DevOps developer'
               ]
             },
             'dev-ops-docker': 
@@ -201,10 +159,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work with docker swarm'
-                }
+                'You work with docker swarm'
               ]
             },
             'dev-ops-monitoring': 
@@ -212,10 +167,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You do monitoring'
-                }
+                'You do monitoring'
               ]
             },
             // dba...
@@ -228,10 +180,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a dba'
-                }
+                'You are a database administrator (DBA)'
               ]
             },
             'dba-writer': 
@@ -239,14 +188,8 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You optimize write operations'
-                },
-                {
-                  role    : 'system',
-                  content : 'You work with redis'
-                }
+                'You optimize write operations',
+                'You work with redis'
               ]
             },
             'dba-reader': 
@@ -254,14 +197,8 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You optimize read operations'
-                },
-                {
-                  role    : 'system',
-                  content : 'You work with MySql'
-                }
+                'You optimize read operations',
+                'You work with MySql'
               ]
             },
             'technical-writer': 
@@ -273,10 +210,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You are a technical writer'
-                }
+                'You are a technical writer'
               ]
             },
             'technical-writer-swaggor':
@@ -284,10 +218,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work with swaggor'
-                }
+                'You work with swaggor'
               ]
             },
             'technical-writer-doctype':
@@ -295,10 +226,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work with doctype'
-                }
+                'You work with doctype'
               ]
             },
             'qa':
@@ -313,10 +241,7 @@ module.exports =
               ],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA'
-                }
+                'You work as QA'
               ]
             },
             'qa-api':
@@ -324,10 +249,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA in the API layer'
-                }
+                'You work as QA in the API layer'
               ]
             },
             'qa-domain':
@@ -335,10 +257,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA in the domain layer'
-                }
+                'You work as QA in the domain layer'
               ]
             },
             'qa-process':
@@ -346,10 +265,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA in the process layer'
-                }
+                'You work as QA in the process layer'
               ]
             },
             'qa-infrastructure':
@@ -357,10 +273,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA in the infrastructure layer'
-                }
+                'You work as QA in the infrastructure layer'
               ]
             },
             'qa-documentation':
@@ -368,10 +281,7 @@ module.exports =
               team: [],
               indoctrination:
               [
-                {
-                  role    : 'system',
-                  content : 'You work as QA with documentation'
-                }
+                'You work as QA with documentation'
               ]
             },
           },
@@ -383,12 +293,13 @@ module.exports =
             {
               expectations:
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Expand on the specifications provided'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'Expand on the specifications provided'
+                  ],
+                  expert: 'ba'
+                }
               ],
               alphaActorId: 'ba',
               betaActorIds: ['team-lead']
@@ -397,75 +308,47 @@ module.exports =
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Make sure that the new specifications are aligned with expectations'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'Make sure that the new specifications are aligned with expectations'
+                  ],
+                  expert: 'ba'
+                }
               ],
               alphaActorId: 'ba',
-              betaActorIds: ['persona']
+              betaActorIds: ['team-lead']
             },
             'sugested technical approach':
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'sugest a technical approach'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'sugest a technical approach'
+                  ],
+                  expert: 'architect-lead'
+                }
               ],
               alphaActorId: 'ba',
               betaActorIds: ['team-lead', 'architect-lead']
-            },
-            'refine specifications':
-            {
-              expectations: 
-              [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Make sure that the sugested technical approach is aligned with expectations'
-                  }
-                ]
-              ],
-              alphaActorId: 'ba',
-              betaActorIds: ['persona']
             },
             'composed story book':
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'compose a story book'
-                  },
-                  {
-                    'role'    : 'message',
-                    'content' : 'each story should reflect a use case described in the specification'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'compose a story book',
+                    'each story should reflect a use case described in the specification'
+                  ],
+                  expert: 'team-lead'
+                }
               ],
               alphaActorId: 'ba',
               betaActorIds: ['team-lead', 'architect-lead']
-            },
-            'refine story book':
-            {
-              expectations: 
-              [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Make sure that the sugested storybook is aligned with expectations'
-                  }
-                ]
-              ],
-              alphaActorId: 'ba',
-              betaActorIds: ['persona']
             },
             // distribute and perform work
             // ...
@@ -473,12 +356,13 @@ module.exports =
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Compose the interfaces of the solution'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'compose the interfaces of the solution'
+                  ],
+                  expert: 'architect-lead'
+                }
               ],
               alphaActorId: 'team-lead',
               betaActorIds: ['architect-lead']
@@ -487,12 +371,13 @@ module.exports =
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Implement a solution based on the composed interfaces'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'implement a solution based on the composed interfaces'
+                  ],
+                  expert: 'domain-ambassador'
+                }
               ],
               alphaActorId: 'team-lead',
               betaActorIds: ['domain-ambassador']
@@ -501,12 +386,13 @@ module.exports =
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Implement the documentation of the solution'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'implement the documentation of the solution'
+                  ],
+                  expert: 'technical-writer'
+                }
               ],
               alphaActorId: 'team-lead',
               betaActorIds: ['technical-writer']
@@ -515,12 +401,13 @@ module.exports =
             {
               expectations: 
               [
-                [
-                  {
-                    'role'    : 'message',
-                    'content' : 'Express a QA report of the solution'
-                  }
-                ]
+                {
+                  reasons:
+                  [
+                    'Express a QA report of the solution'
+                  ],
+                  expert: 'qa'
+                }
               ],
               alphaActorId: 'team-lead',
               betaActorIds: ['qa']
@@ -540,7 +427,7 @@ module.exports =
         {
           headers:
           {
-            'Authorization' : `Bearer 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`,
+            'Authorization' : `Bearer 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`,
             'Content-Type'  : 'application/json'
           }
         }

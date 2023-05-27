@@ -7,21 +7,21 @@ const schema =
   'team':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
     'collection'  : true
   },
   'indoctrination':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Topic',
+    'schema'      : 'superduper-squad/schema/entity/topic',
     'description' : 'expected to be part of every input to the ai api, as a set of belives that chapes the decition',
     'collection'  : true
   },
   'discussions':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Discussion',
+    'schema'      : 'superduper-squad/schema/entity/discussion',
     'description' : 'conversations that can be used as memory to improve the ability to answer and act according to expectations',
     'collection'  : true,
     'default'     : []

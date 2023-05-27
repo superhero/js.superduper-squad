@@ -7,7 +7,7 @@ const schema =
   'reasons':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Topic',
+    'schema'      : 'superduper-squad/schema/entity/topic',
     'collection'  : true
   }
 }

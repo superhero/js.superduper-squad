@@ -9,4 +9,5 @@ core.add('superduper-squad', __dirname)
 
 core.load()
 
-core.locate('core/bootstrap').bootstrap()
+core.locate('core/bootstrap').bootstrap().then(
+  () => core.locate('superduper-squad/persona').init())

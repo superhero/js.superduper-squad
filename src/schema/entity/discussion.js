@@ -7,26 +7,26 @@ const schema =
   'alphaActorId':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
   },
   'betaActorId':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Actor',
+    'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
   },
   'reasoning':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Reasoning',
+    'schema'      : 'superduper-squad/schema/entity/reasoning',
     'trait'       : 'reasons',
     'collection'  : true
   },
   'conclusion':
   {
     'type'        : 'schema',
-    'schema'      : 'SuperduperSquad/Schema/Entity/Topic',
+    'schema'      : 'superduper-squad/schema/entity/topic',
   }
 }
 
