@@ -1,5 +1,6 @@
 const
   Ai                  = require('.'),
+  Request             = require('superhero/core/http/request'),
   LocatorConstituent  = require('superhero/core/locator/constituent')
 
 /**

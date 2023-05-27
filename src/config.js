@@ -15,7 +15,7 @@ module.exports =
     {
       composer:
       {
-        'eventsource-superduper/schema/entity/*'  : __dirname + '/schema/entity/*'
+        'superduper-squad/schema/entity/*'  : __dirname + '/schema/entity/*'
       }
     }
   },
@@ -441,7 +441,8 @@ module.exports =
           {
             'Authorization' : `Bearer ` + process.env.AI_TOKEN,
             'Content-Type'  : 'application/json'
-          }
+          },
+          url: 'https://api.openai.com/'
         }
       }
     }

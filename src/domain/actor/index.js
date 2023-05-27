@@ -68,8 +68,8 @@ class Actor
     const 
       domain  = 'process/create-actor',
       pid     = projectId + '.' + actorId,
-      event   = await this.eventsource.readState(domain, pid),
-      actor   = this.schema.compose('superduper-squad/schema/entity/actor', event.data)
+      state   = await this.eventsource.readState(domain, pid),
+      actor   = this.schema.compose('superduper-squad/schema/entity/actor', state)
 
     return actor
   }
@@ -158,7 +158,7 @@ class Actor
    */
   async conclude(actor, topics)
   {
-    return await this.ai.conclude([ ...actor.indoctrination, ...topics ])
+    return await this.ai.conclude([ ...actor.indoctrination.reasons, ...topics ])
   }
   
   /**

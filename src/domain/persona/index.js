@@ -15,7 +15,7 @@ class Persona
   {
     const
       playbookNames = Object.keys(this.playbooks),
-      question      = await this.composeQuestion('what playbook do you want to use?'),
+      question      = 'what playbook do you want to use?',
       playbook      = await this.cli.question(question, playbookNames)
 
     return this.deepclone.clone(this.playbooks[playbook])
@@ -25,11 +25,11 @@ class Persona
    * @param {string} message 
    * @returns {string} 
    */
-  async composeQuestion(message)
+  async composeQuestion(projectId, message)
   {
     const
-      actor     = this.actor.findActor('persona'),
-      topic     = this.actor.composeTopic('message', message),
+      actor     = await this.actor.findActor(projectId, 'persona'),
+      topic     = await this.actor.composeTopic('message', message),
       reasoning = { reasons:[ topic ] },
       question  = await this.actor.composeQuestion(reasoning, actor)
     
