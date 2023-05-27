@@ -29,8 +29,19 @@ class Manager
 
     for(const actorId of playbook.team)
     {
-      const a = playbook.team[actorId]
-      await this.actor.createActor(id, actorId, a.indoctrination, a.team)
+      const 
+        playbookActor   = playbook.team[actorId],
+        indoctrination  = playbookActor.indoctrination.map((content) => this.actor.composeTopic('system', content))
+
+      await this.actor.createActor(id, actorId, indoctrination, playbookActor.team)
+    }
+
+    for(const meeting of playbook.meetings)
+    {
+      for(const expectation of meeting.expectations)
+      {
+        expectation.reasons = expectation.reasons.map((content) => this.actor.composeTopic('system', content))
+      }
     }
 
     return this.schema.compose('superduper-squad/schema/entity/project', { ...playbook, id })

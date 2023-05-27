@@ -86,11 +86,9 @@ class Actor
     {
       return
     }
-    else
-    {
-      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
-      await this.eventsource.write({ domain, pid, name, data })
-    }
+
+    const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
+    await this.eventsource.write({ domain, pid, name, data })
   }
 
   /**

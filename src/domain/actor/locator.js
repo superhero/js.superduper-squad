@@ -15,10 +15,9 @@ class ActorLocator extends LocatorConstituent
     const
       ai          = this.locator.locate('infrastructure/upstream/ai'),
       eventsource = this.locator.locate('eventsource/client'),
-      schema      = this.locator.locate('core/schema/composer'),
-      manager     = this.locator.locate('superduper-squad/manager')
+      schema      = this.locator.locate('core/schema/composer')
 
-    return new Actor(ai, schema, eventsource, manager)
+    return new Actor(ai, schema, eventsource)
   }
 }
 

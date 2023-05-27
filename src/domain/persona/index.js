@@ -3,8 +3,9 @@
  */
 class Persona
 {
-  constructor(actor, cli, playbooks)
+  constructor(deepclone, actor, cli, playbooks)
   {
+    this.deepclone  = deepclone
     this.actor      = actor
     this.cli        = cli
     this.playbooks  = playbooks
@@ -17,7 +18,7 @@ class Persona
       question      = await this.composeQuestion('what playbook do you want to use?'),
       playbook      = await this.cli.question(question, playbookNames)
 
-    return playbook
+    return this.deepclone.clone(this.playbooks[playbook])
   }
 
   /**

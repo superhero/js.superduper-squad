@@ -13,11 +13,11 @@ class ManagerLocator extends LocatorConstituent
   locate()
   {
     const
-      actor       = this.locator.locate('superduper-squad/actor'),
-      eventsource = this.locator.locate('eventsource/client'),
-      schema      = this.locator.locate('core/schema/composer')
+      actor   = this.locator.locate('superduper-squad/actor'),
+      persona = this.locator.locate('superduper-squad/persona'),
+      schema  = this.locator.locate('core/schema/composer')
 
-    return new Manager(eventsource, schema, actor)
+    return new Manager(schema, actor, persona)
   }
 }
 

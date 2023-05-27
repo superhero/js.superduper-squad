@@ -1,28 +1,26 @@
 const
-  Manager             = require('.'),
+  Persona             = require('.'),
   LocatorConstituent  = require('superhero/core/locator/constituent')
 
 /**
  * @memberof SuperduperSquad.Domain
  */
-class ManagerLocator extends LocatorConstituent
+class PersonaLocator extends LocatorConstituent
 {
   /**
-   * @returns {Manager}
+   * @returns {Persona}
    */
   locate()
   {
     const
-      ai            = this.locator.locate('infrastructure/upstream/ai'),
-      eventsource   = this.locator.locate('eventsource/client'),
-      schema        = this.locator.locate('core/schema/composer'),
-      manager       = this.locator.locate('superduper-squad/manager'),
+      deepclone     = this.locator.locate('core/deepclone'),
+      actor         = this.locator.locate('superduper-squad/actor'),
       cli           = this.locator.locate('infrastructure/downstream/cli'),
       configuration = this.locator.locate('core/configuration'),
       playbooks     = configuration.find('domain/manager/playbooks')
 
-    return new Manager(ai, schema, eventsource, manager, cli, playbooks)
+    return new Persona(deepclone, actor, cli, playbooks)
   }
 }
 
-module.exports = ManagerLocator
+module.exports = PersonaLocator

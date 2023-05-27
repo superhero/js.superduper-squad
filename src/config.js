@@ -29,13 +29,20 @@ module.exports =
         {
           team:
           {
+            'persona': 
+            {
+              team: [],
+              indoctrination:
+              [
+                'You adopt domain driven design principles'
+              ],
+            },
             'ba': 
             {
               team: [],
               indoctrination:
               [
-                'You are a business analyst',
-                'You adopt domain driven design principles'
+                'You are a business analyst'
               ],
             },
             'team-lead': 
@@ -43,6 +50,7 @@ module.exports =
               team: [],
               indoctrination:
               [
+                'You adopt domain driven design principles',
                 'You are team lead'
               ],
             },
@@ -57,6 +65,7 @@ module.exports =
               ],
               indoctrination:
               [
+                'You adopt domain driven design principles',
                 'You are the lead architect'
               ]
             },
@@ -106,6 +115,7 @@ module.exports =
               ],
               indoctrination:
               [
+                'You adopt domain driven design principles',
                 'You are the domain ambassador'
               ]
             },
@@ -180,6 +190,7 @@ module.exports =
               ],
               indoctrination:
               [
+                'You adopt domain driven design principles',
                 'You are a database administrator (DBA)'
               ]
             },
@@ -210,6 +221,7 @@ module.exports =
               ],
               indoctrination:
               [
+                'You adopt domain driven design principles',
                 'You are a technical writer'
               ]
             },
