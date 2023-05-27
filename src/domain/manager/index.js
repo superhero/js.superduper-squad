@@ -15,7 +15,7 @@ class Manager
     const
       playbook    = await this.persona.getPlaybook(),
       project     = await this.createProject(playbook),
-      initMessage = await this.persona.init(),
+      initMessage = await this.persona.init(project.id),
       conclusion  = await this.startProject(project, initMessage)
 
     // action loop - actor.act()
@@ -32,6 +32,8 @@ class Manager
       const 
         playbookActor   = playbook.team[actorId],
         indoctrination  = playbookActor.indoctrination.map((content) => this.actor.composeTopic('system', content))
+
+      playbookActor.indoctrination = indoctrination
 
       await this.actor.createActor(id, actorId, indoctrination, playbookActor.team)
     }

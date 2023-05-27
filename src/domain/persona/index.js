@@ -11,6 +11,16 @@ class Persona
     this.playbooks  = playbooks
   }
 
+  async init(projectId)
+  {
+    const 
+      message   = 'formulate a question, stating: what can I help you with?',
+      question  = await this.composeQuestion(projectId, message),
+      answer    = await this.cli(question)
+    
+    return answer
+  }
+
   async getPlaybook()
   {
     const
