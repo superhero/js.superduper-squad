@@ -25,28 +25,36 @@ class Manager
 
   async createProject(playbook, projectId)
   {
-    const id = projectId || Date.now().toString(32)
+    const
+      id       = projectId || Date.now().toString(32),
+      team     = [],
+      meetings = []
 
-    for(const actorId of playbook.team)
+    for(const actorId in playbook.team)
     {
-      const 
+      const
         playbookActor   = playbook.team[actorId],
         indoctrination  = playbookActor.indoctrination.map((content) => this.actor.composeTopic('system', content))
 
       playbookActor.indoctrination = indoctrination
 
       await this.actor.createActor(id, actorId, indoctrination, playbookActor.team)
+      const actor = await this.actor.findActor(id, actorId)
+
+      team.push(actor)
     }
 
-    for(const meeting of playbook.meetings)
+    for(const meetingId in playbook.meetings)
     {
+      const meeting = playbook.meetings[meetingId]
       for(const expectation of meeting.expectations)
       {
         expectation.reasons = expectation.reasons.map((content) => this.actor.composeTopic('system', content))
       }
+      meetings.push(meeting)
     }
 
-    return this.schema.compose('superduper-squad/schema/entity/project', { ...playbook, id })
+    return this.schema.compose('superduper-squad/schema/entity/project', { team, meetings, id })
   }
   
   async startProject(project, conclusion)

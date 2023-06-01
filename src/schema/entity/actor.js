@@ -4,6 +4,13 @@
  */
 const schema =
 {
+  'id':
+  {
+    'type'        : 'string',
+    'description' : 'unique identifier for the actor',
+    'not-empty'   : true,
+    'optional'    : true
+  },
   'team':
   {
     'type'        : 'schema',

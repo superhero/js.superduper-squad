@@ -65,13 +65,23 @@ class Actor
 
   async findActor(projectId, actorId)
   {
-    const 
-      domain  = 'process/create-actor',
-      pid     = projectId + '.' + actorId,
-      state   = await this.eventsource.readState(domain, pid),
-      actor   = this.schema.compose('superduper-squad/schema/entity/actor', state)
+    try
+    {
+      const 
+        domain  = 'process/create-actor',
+        pid     = projectId + '.' + actorId,
+        state   = await this.eventsource.readState(domain, pid),
+        actor   = this.schema.compose('superduper-squad/schema/entity/actor', state)
 
-    return actor
+      return actor
+    }
+    catch(previousError)    
+    {
+      const error = new Error(`Actor ${actorId} not found in project ${projectId}`)
+      error.chain = { previousError, projectId, actorId }
+      error.code  = 'ACTOR_NOT_FOUND'
+      throw error
+    }
   }
 
   async createActor(projectId, actorId, indoctrination, team = [])
@@ -97,7 +107,7 @@ class Actor
    */
   composeTopic(role, content)
   {
-    this.schema.compose('superduper-squad/schema/entity/topic', { role, content })
+    return this.schema.compose('superduper-squad/schema/entity/topic', { role, content })
   }
 
   /**
