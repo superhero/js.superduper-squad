@@ -68,7 +68,7 @@ class Actor
     try
     {
       const 
-        domain  = 'process/create-actor',
+        domain  = 'sd-squad/create-actor',
         pid     = projectId + '.' + actorId,
         state   = await this.eventsource.readState(domain, pid),
         actor   = this.schema.compose('superduper-squad/schema/entity/actor', state)
@@ -87,18 +87,21 @@ class Actor
   async createActor(projectId, actorId, indoctrination, team = [])
   {
     const
-      domain    = 'process/create-actor', 
+      domain    = 'sd-squad/create-actor', 
       pid       = projectId + '.' + actorId,
       name      = 'actor created',
       hasEvent  = await this.eventsource.hasEvent(domain, pid, name)
 
-    if(hasEvent)
+    if(hasEvent === false)
     {
-      return
+      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
+      await this.eventsource.write({ domain, pid, name, data })
     }
+  }
 
-    const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
-    await this.eventsource.write({ domain, pid, name, data })
+  assert(actor)
+  {
+    this.schema.compose('superduper-squad/schema/entity/actor', actor)
   }
 
   /**
@@ -168,7 +171,7 @@ class Actor
    */
   async conclude(actor, topics)
   {
-    return await this.ai.conclude([ ...actor.indoctrination.reasons, ...topics ])
+    return await this.ai.conclude([ ...actor.indoctrination, ...topics ])
   }
   
   /**

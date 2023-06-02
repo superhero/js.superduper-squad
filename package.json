@@ -9,7 +9,7 @@
     "start": "node ./src/index.js"
   },
   "dependencies": {
-    "@superhero/core.eventsource": "3.6.6"
+    "@superhero/core.eventsource": "3.7.8"
   },
   "devDependencies": {
     "@superhero/syntax-check": "0.0.2"

@@ -66,7 +66,9 @@ class Ai
         // A number between -2.0 and 2.0
         presence_penalty: 0
       },
-      result = await this.gateway.post({ url, headers, data })
+      result = await this.gateway.post({ url, data })
+
+    this.console.log('...ai result', result)
 
     if(result.status === 200)
     {

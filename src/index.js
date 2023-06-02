@@ -10,4 +10,8 @@ core.add('superduper-squad', __dirname)
 core.load(true)
 
 core.locate('core/bootstrap').bootstrap().then(
-  () => core.locate('superduper-squad/manager').init())
+  () => 
+  {
+    core.locate('core/console').log('Open AI key:', process.env.AI_TOKEN)
+    core.locate('superduper-squad/manager').init()
+  })

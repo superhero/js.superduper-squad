@@ -39,8 +39,8 @@ class Manager
       playbookActor.indoctrination = indoctrination
 
       await this.actor.createActor(id, actorId, indoctrination, playbookActor.team)
-      const actor = await this.actor.findActor(id, actorId)
-
+      const actor = { id:actorId, indoctrination, team:playbookActor.team }
+      this.actor.assert(actor)
       team.push(actor)
     }
 

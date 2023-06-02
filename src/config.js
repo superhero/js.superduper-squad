@@ -8,6 +8,7 @@ module.exports =
     locator:
     {
       'superduper-squad/*'          : __dirname + '/domain/*',
+      'sd-squad/*'                  : __dirname + '/process/*',
       'infrastructure/downstream/*' : __dirname + '/infrastructure/downstream/*',
       'infrastructure/upstream/*'   : __dirname + '/infrastructure/upstream/*'
     },
@@ -444,6 +445,18 @@ module.exports =
           },
           url: 'https://api.openai.com/'
         }
+      }
+    }
+  },
+  client:
+  {
+    eventsource:
+    {
+      domain  : 'sd-squad/*',
+      name    : '*',
+      gateway :
+      {
+        url: `redis://` + process.env.REDIS_URL
       }
     }
   }
