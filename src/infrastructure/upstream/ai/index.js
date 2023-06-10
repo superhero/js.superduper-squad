@@ -32,7 +32,7 @@ class Ai
    * 
    * @param {array<SuperduperSquad.Schema.Entity.Topic>} messages 
    */
-  async conclude(messages)
+  async conclude(messages, max_tokens = 500)
   {
     const
       url  = '/v1/chat/completions',
@@ -43,18 +43,18 @@ class Ai
         // model: 'gpt-4'
 
         // the input...
-        messages,
+        messages: [ { role:'system', content:'Write short answers' }, ...messages ],
 
         // Sets a maximum limit to the length of the generated text
-        max_tokens : 100,
+        max_tokens,
 
         // Influences the randomness of the model's responses
         // A high temperature (close to 1) results in more random outputs, 
         // while a lower temperature (close to 0) makes the output more deterministic and focused
-        temperature : 0.2,
+        temperature : 0.9,
 
         // when top_p is set to 1, the model considers all tokens, but when top_p is set to, say, 0.5, it only considers the most probable tokens
-        top_p : 0.75,
+        top_p : 0.5,
 
         // This parameter discourages the model from choosing tokens that it uses frequently. 
         // A higher frequency_penalty means the model is more likely to avoid commonly used tokens in its responses.
@@ -68,6 +68,7 @@ class Ai
       },
       result = await this.gateway.post({ url, data })
 
+    this.console.log('...ai input', messages)
     this.console.log('...ai result', result)
 
     if(result.status === 200)

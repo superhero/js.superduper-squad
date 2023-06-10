@@ -13,11 +13,15 @@ class Persona
 
   async init(projectId)
   {
+    console.log('.......init', projectId)
+
     const 
-      message   = 'formulate a question, stating: what can I help you with?',
+      message   = 'formulate a question that states: what can I help you with?',
       question  = await this.composeQuestion(projectId, message),
-      answer    = await this.cli(question)
+      answer    = await this.cli.question(question)
     
+    console.log('.........answer', answer)
+
     return answer
   }
 
@@ -39,9 +43,9 @@ class Persona
   {
     const
       actor     = await this.actor.findActor(projectId, 'persona'),
-      topic     = await this.actor.composeTopic('message', message),
+      topic     = await this.actor.composeTopic('user', message),
       reasoning = { reasons:[ topic ] },
-      question  = await this.actor.composeQuestion(reasoning, actor)
+      question  = await this.actor.composeQuestion(reasoning.reasons, actor)
     
     return question
   }
@@ -53,7 +57,7 @@ class Persona
   {
     const
       question  = await this.composeQuestion(conclusion),
-      answer    = await this.cli(question)
+      answer    = await this.cli.question(question)
 
     return answer
   }

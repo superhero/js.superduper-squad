@@ -18,26 +18,38 @@ class Actor
   async meet(projectId, meeting, previousConclusion)
   {
     const
-      alpha         = await this.findActor(projectId, meeting.alphaActorId),
-      betas         = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId))),
-      conclusions   = [],
-      previousTopic = composeTopic('message', previousConclusion)
+      alpha             = await this.findActor(projectId, meeting.alphaActorId),
+      betas             = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId))),
+      conclusionTopics  = [],
+      previousTopic     = this.composeTopic('user', previousConclusion)
 
     for(const expectation of meeting.expectations)
     {
-      const expectationConclusions = []
+      const expectationConclusionTopics = []
       for(const beta of betas)
       {
-        const conclusion = await this.discuss([...expectation, previousTopic], alpha, beta)
-        expectationConclusions.push(conclusion)
+        const 
+          conclusion = await this.discuss(projectId, [...expectation.reasons, previousTopic], alpha, beta),
+          topic      = this.composeTopic('assistant', conclusion)
+        
+        expectationConclusionTopics.push(topic)
       }
 
-      const conclusion = await this.conclude(alpha, expectationConclusions)
+      const 
+        conclusion = await this.conclude(alpha, expectationConclusionTopics),
+        topic      = this.composeTopic('assistant', conclusion)
+
       expectation.conclusion = conclusion
-      conclusions.push(conclusion)
+      conclusionTopics.push(topic)
     }
 
-    const conclusion = await this.conclude(alpha, conclusions)
+    // TODO... shall we conclude these messages by concatenating the strings, or by asking the AI to conclude everything, including the expectations...
+    // currently we get the errror that "As an AI language model, I don't have a profession or occupation" becouse we do not ask it a question as a user.
+
+    const conclusion = await this.conclude(alpha, conclusionTopics)
+
+    console.log('meet conclusion.... ', conclusion)
+
     return conclusion
   }
 
@@ -50,13 +62,13 @@ class Actor
   {
     const
       alpha           = await this.findActor(projectId, meeting.alphaActorId),
-      feedbackMessage = composeTopic('message', feedback)
+      feedbackMessage = this.composeTopic('user', feedback)
 
     for(const expectation of meeting.expectations)
     {
       const 
-        conclusionAssistent = composeTopic('assistent', expectation.conclusion),
-        feedbackConclusion  = await this.conclude(alpha, [ ...expectation.reasons, conclusionAssistent, feedbackMessage ])
+        conclusionAssistant = this.composeTopic('assistant', expectation.conclusion),
+        feedbackConclusion  = await this.conclude(alpha, [ ...expectation.reasons, conclusionAssistant, feedbackMessage ])
 
       expectation.feedback            = feedback
       expectation.feedbackConclusion  = feedbackConclusion
@@ -71,7 +83,7 @@ class Actor
         domain  = 'sd-squad/create-actor',
         pid     = projectId + '.' + actorId,
         state   = await this.eventsource.readState(domain, pid),
-        actor   = this.schema.compose('superduper-squad/schema/entity/actor', state)
+        actor   = this.schema.compose('superduper-squad/schema/entity/actor', { ...state, id:actorId })
 
       return actor
     }
@@ -114,54 +126,60 @@ class Actor
   }
 
   /**
-   * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
-   * @param {SuperduperSquad.Schema.Entity.Actor}     actor
+   * @param {array<SuperduperSquad.Schema.Entity.Topic>}  reasons 
+   * @param {SuperduperSquad.Schema.Entity.Actor}         actor
    */
-  async composeQuestion(reasoning, actor)
+  async composeQuestion(reasons, actor)
   {
     const 
-      question    = this.composeTopic('message', 'compose question'),
-      topics      = [ ...reasoning.reasons, question ],
+      question    = this.composeTopic('user', 'compose question'),
+      topics      = [ ...reasons, question ],
       conclusion  = await this.conclude(actor, topics)
 
     return conclusion
   }
 
   /**
-   * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
-   * @param {SuperduperSquad.Schema.Entity.Actor}     alpha
-   * @param {SuperduperSquad.Schema.Entity.Actor}     beta
+   * @param {string}                                      projectId 
+   * @param {array<SuperduperSquad.Schema.Entity.Topic>}  reasons 
+   * @param {SuperduperSquad.Schema.Entity.Actor}         alpha
+   * @param {SuperduperSquad.Schema.Entity.Actor}         beta
    */
-  async discuss(reasoning, alpha, beta)
+  async discuss(projectId, reasons, alpha, beta)
   {
     const 
-      question      = await this.composeQuestion(reasoning, alpha),
-      conclusion    = await this.reason(beta, question),
+      question      = await this.composeQuestion(reasons, alpha),
+      topic         = this.composeTopic('user', question),
+      conclusion    = await this.reason(projectId, beta, [ topic ]),
       alphaActorId  = alpha.id, 
-      betaActorId   = beta.id, 
-      discussion    = this.schema.compose('superduper-squad/schema/entity/discussion', { alphaActorId, betaActorId, reasoning:question, conclusion })
+      betaActorId   = beta.id,
+      discussion    = this.schema.compose('superduper-squad/schema/entity/discussion', { alphaActorId, betaActorId, reasons:[ topic ], conclusion })
 
     alpha.discussions.push(discussion)
     return conclusion
   }
   
   /**
-   * @param {SuperduperSquad.Schema.Entity.Actor}     alpha 
-   * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
+   * @param {string}                                      projectId 
+   * @param {SuperduperSquad.Schema.Entity.Actor}         alpha 
+   * @param {array<SuperduperSquad.Schema.Entity.Topic>}  reasons 
    */
-  async reason(projectId, alpha, reasoning)
+  async reason(projectId, alpha, reasons)
   {
     const 
-      team        = await Promise.all(actor.team.map((actorId) => this.findActor(projectId, actorId))),
+      team        = await Promise.all(alpha.team.map((actorId) => this.findActor(projectId, actorId))),
       conclusions = []
 
     for(const beta of team)
     {
-      const conclusion = await this.discuss(reasoning, alpha, beta)
-      conclusions.push(conclusion)
+      const 
+        conclusion = await this.discuss(projectId, reasons, alpha, beta),
+        topic      = this.composeTopic('assistant', conclusion)
+
+      conclusions.push(topic)
     }
 
-    const conclusion = await this.conclude(alpha, conclusions)
+    const conclusion = await this.conclude(alpha, [ ...reasons, ...conclusions ])
     return conclusion
   }
   

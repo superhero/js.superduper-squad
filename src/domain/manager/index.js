@@ -61,7 +61,15 @@ class Manager
   {
     for(const meeting of project.meetings)
     {
+      console.log('project id:', project.id)
+      console.log('meeting:', meeting)
+
       conclusion = await this.actor.meet(project.id, meeting, conclusion)
+
+      console.log('conclusion:', conclusion)
+
+      throw new Error('TODO: chill a bit...')
+
       const feedback = await this.persona.feedback(conclusion)
       await this.actor.feedback(project.id, meeting, feedback)
     }

@@ -16,17 +16,15 @@ const schema =
     'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
   },
-  'reasoning':
+  'reasons':
   {
     'type'        : 'schema',
     'schema'      : 'superduper-squad/schema/entity/reasoning',
-    'trait'       : 'reasons',
-    'collection'  : true
+    'trait'       : 'reasons'
   },
   'conclusion':
   {
-    'type'        : 'schema',
-    'schema'      : 'superduper-squad/schema/entity/topic',
+    'type'        : 'string'
   }
 }
 

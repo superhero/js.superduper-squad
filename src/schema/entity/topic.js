@@ -9,9 +9,9 @@ const schema =
     'type' : 'string',
     'enum' : 
     [
-      'assistent',
       'system',
-      'message'
+      'assistant',
+      'user',
     ]
   },
   'content':
