@@ -13,15 +13,12 @@ class Persona
 
   async init(projectId)
   {
-    console.log('.......init', projectId)
-
-    const 
-      message   = 'formulate a question that states: what can I help you with?',
-      question  = await this.composeQuestion(projectId, message),
-      answer    = await this.cli.question(question)
-    
-    console.log('.........answer', answer)
-
+    let answer
+    do
+    {
+      answer = await this.cli.question('what can I help you with?')
+    }
+    while(answer.trim() === '')
     return answer
   }
 
@@ -53,10 +50,10 @@ class Persona
   /**
    * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
    */
-  async feedback(conclusion)
+  async feedback(projectId, conclusion)
   {
     const
-      question  = await this.composeQuestion(conclusion),
+      question  = await this.composeQuestion(projectId, conclusion),
       answer    = await this.cli.question(question)
 
     return answer

@@ -49,7 +49,7 @@ class Manager
       const meeting = playbook.meetings[meetingId]
       for(const expectation of meeting.expectations)
       {
-        expectation.reasons = expectation.reasons.map((content) => this.actor.composeTopic('system', content))
+        expectation.reasons = expectation.reasons.map((content) => this.actor.composeTopic('user', content))
       }
       meetings.push(meeting)
     }
@@ -70,7 +70,7 @@ class Manager
 
       throw new Error('TODO: chill a bit...')
 
-      const feedback = await this.persona.feedback(conclusion)
+      const feedback = await this.persona.feedback(project.id, conclusion)
       await this.actor.feedback(project.id, meeting, feedback)
     }
 

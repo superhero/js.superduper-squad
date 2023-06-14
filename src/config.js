@@ -309,7 +309,7 @@ module.exports =
                 {
                   reasons:
                   [
-                    'Expand on the specifications provided'
+                    'Compose specifications for the project'
                   ],
                   expert: 'ba'
                 }

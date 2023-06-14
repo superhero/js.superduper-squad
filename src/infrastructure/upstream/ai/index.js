@@ -43,7 +43,7 @@ class Ai
         // model: 'gpt-4'
 
         // the input...
-        messages: [ { role:'system', content:'Write short answers' }, ...messages ],
+        messages,
 
         // Sets a maximum limit to the length of the generated text
         max_tokens,
