@@ -3,74 +3,44 @@
  */
 class Actor
 {
-  constructor(ai, schema, eventsource)
+  constructor(ai, schema, eventsource, console)
   {
     this.ai           = ai
     this.schema       = schema
     this.eventsource  = eventsource
+    this.console      = console
   }
 
   /**
    * @param {string} projectId 
    * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
-   * @param {string} previousConclusion 
+   * @param {SuperduperSquad.Schema.Entity.Topic} directive
    */
-  async meet(projectId, meeting, previousConclusion)
+  async meet(projectId, meeting, directive)
   {
-    console.log('meet... ')
-
     const
-      alpha             = await this.findActor(projectId, meeting.alphaActorId),
-      betas             = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId))),
-      previousTopic     = this.composeTopic('user', previousConclusion),
-      conclusionTopics  = [ previousTopic ]
+      alpha = await this.findActor(projectId, meeting.alphaActorId),
+      betas = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId)))
 
     for(const expectation of meeting.expectations)
     {
-      console.log('meet... expectation... ')
       const expectationConclusionTopics = []
 
       for(const beta of betas)
       {
-        console.log('meet... expectation... discuss with beta...')
-
         const
-          conclusion  = await this.discuss(projectId, [ previousTopic, ...expectation.reasons ], alpha, beta),
+          conclusion  = await this.discuss(projectId, [ directive, ...expectation.reasons ], alpha, beta),
           topic       = this.composeTopic('assistant', conclusion)
         
         expectationConclusionTopics.push(topic)
       }
 
-      conclusionTopics.push(...expectation.reasons)
-
-      console.log('meet... expectation... conclude by alpha...')
-
       const
-        concludeTopic = this.composeTopic('user', 'provide answers without introductions or epilogue'),
-        conclusion    = await this.conclude(alpha, [ ...conclusionTopics, ...expectationConclusionTopics, concludeTopic, ...expectation.reasons ]),
-        topic         = this.composeTopic('assistant', conclusion)
+        concludeTopic = this.composeTopic('user', 'respond without introduction and conclusion'), // prologue or epilogue
+        conclusion    = await this.conclude(alpha, [ directive, ...expectation.reasons, ...expectationConclusionTopics, concludeTopic, ...expectation.reasons ])
 
-      expectation.conclusion = conclusion
-      conclusionTopics.push(topic)
+      expectation.conclusion = this.composeTopic('assistant', conclusion)
     }
-
-    // TODO... shall we conclude these messages by concatenating the strings, or by asking the AI to conclude everything, including the expectations...
-    // currently we get the errror that "As an AI language model, I don't have a profession or occupation" becouse we do not ask it a question as a user.
-
-    let conclusion = ''
-
-    for(const expectation of meeting.expectations)
-    {
-      conclusion += 'Expectation\n'
-      conclusion += expectation.reasons.reduce((output, topic) => output + '\n' + topic.content, '')
-      conclusion += '\n\n'
-      conclusion += 'Conclusion\n'
-      conclusion += expectation.conclusion + '\n'
-    }
-
-    console.log('meet conclusion.... ', conclusion)
-
-    return conclusion
   }
 
   /**
@@ -81,8 +51,6 @@ class Actor
    */
   async discuss(projectId, reasons, alpha, beta)
   {
-    console.log('discuss... ')
-
     const 
       conclusion    = await this.reason(projectId, beta, reasons),
       alphaActorId  = alpha.id, 
@@ -91,28 +59,6 @@ class Actor
 
     alpha.discussions.push(discussion)
     return conclusion
-  }
-
-  /**
-   * @param {string} projectId 
-   * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
-   * @param {string} feedback 
-   */
-  async feedback(projectId, meeting, feedback)
-  {
-    const
-      alpha           = await this.findActor(projectId, meeting.alphaActorId),
-      feedbackMessage = this.composeTopic('user', feedback)
-
-    for(const expectation of meeting.expectations)
-    {
-      const 
-        conclusionAssistant = this.composeTopic('assistant', expectation.conclusion),
-        feedbackConclusion  = await this.conclude(alpha, [ ...expectation.reasons, conclusionAssistant, feedbackMessage ])
-
-      expectation.feedback            = feedback
-      expectation.feedbackConclusion  = feedbackConclusion
-    }
   }
 
   async findActor(projectId, actorId)
@@ -146,7 +92,7 @@ class Actor
 
     if(hasEvent === false)
     {
-      const data = this.schema.compose('superduper-squad/schema/entity/actor', { indoctrination, team })
+      const data = this.schema.compose('superduper-squad/schema/entity/actor', { id:actorId, indoctrination, team })
       await this.eventsource.write({ domain, pid, name, data })
     }
   }

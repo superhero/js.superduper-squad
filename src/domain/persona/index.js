@@ -11,15 +11,17 @@ class Persona
     this.playbooks  = playbooks
   }
 
-  async init(projectId)
+  async getDirective(projectId)
   {
-    let answer
+    let directive
+
     do
     {
-      answer = await this.cli.question('what can I help you with?')
+      directive = await this.cli.question('provide a detailed project directive?')
     }
-    while(answer.trim() === '')
-    return answer
+    while(directive.trim() === '')
+
+    return this.actor.composeTopic('user', directive)
   }
 
   async getPlaybook()
@@ -32,31 +34,25 @@ class Persona
     return this.deepclone.clone(this.playbooks[playbook])
   }
 
-  /**
-   * @param {string} message 
-   * @returns {string} 
-   */
-  async composeQuestion(projectId, message)
+  async feedback(regarding, learned)
   {
-    const
-      actor     = await this.actor.findActor(projectId, 'persona'),
-      topic     = await this.actor.composeTopic('user', message),
-      reasoning = { reasons:[ topic ] },
-      question  = await this.actor.composeQuestion(reasoning.reasons, actor)
-    
-    return question
-  }
+    await this.cli.write('---')
+    await this.cli.write('Meetings regarding the ' + regarding)
 
-  /**
-   * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning 
-   */
-  async feedback(projectId, conclusion)
-  {
-    const
-      question  = await this.composeQuestion(projectId, conclusion),
-      answer    = await this.cli.question(question)
+    for(const topic of learned)
+    {
+      await this.cli.write('')
+      await this.cli.write(topic.content)
+    }
 
-    return answer
+    await this.cli.write('')
+    await this.cli.write('Please provide feedback!')
+
+    const feedback = await this.cli.question('')
+
+    await this.cli.write('recieved feedback...')
+
+    return feedback
   }
 }
 

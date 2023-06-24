@@ -8,8 +8,7 @@ const schema =
   {
     'type'        : 'string',
     'description' : 'unique identifier for the actor',
-    'not-empty'   : true,
-    'optional'    : true
+    'not-empty'   : true
   },
   'team':
   {

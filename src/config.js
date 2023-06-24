@@ -1,3 +1,5 @@
+const { regarding } = require("./schema/entity/expectation");
+
 /**
  * @namespace SuperduperSquad
  */
@@ -302,14 +304,14 @@ module.exports =
           {
             // gather project specification
             // ...
-            'expanding specifications':
+            'specifications':
             {
               expectations:
               [
                 {
                   reasons:
                   [
-                    'Compose specifications for the project'
+                    'compose specifications for the project'
                   ],
                   expert: 'ba'
                 }
@@ -317,22 +319,7 @@ module.exports =
               alphaActorId: 'ba',
               betaActorIds: ['team-lead']
             },
-            'clerifying specifications':
-            {
-              expectations: 
-              [
-                {
-                  reasons:
-                  [
-                    'Make sure that the new specifications are aligned with expectations'
-                  ],
-                  expert: 'ba'
-                }
-              ],
-              alphaActorId: 'ba',
-              betaActorIds: ['team-lead']
-            },
-            'sugested technical approach':
+            'technical-approach':
             {
               expectations: 
               [
@@ -347,7 +334,7 @@ module.exports =
               alphaActorId: 'ba',
               betaActorIds: ['team-lead', 'architect-lead']
             },
-            'composed story book':
+            'story-book':
             {
               expectations: 
               [
@@ -355,7 +342,7 @@ module.exports =
                   reasons:
                   [
                     'compose a story book',
-                    'each story should reflect a use case described in the specification'
+                    'each story should reflect different use cases described by the specifications'
                   ],
                   expert: 'team-lead'
                 }
@@ -365,7 +352,7 @@ module.exports =
             },
             // distribute and perform work
             // ...
-            'composed model':
+            'composed-model':
             {
               expectations: 
               [
@@ -380,7 +367,7 @@ module.exports =
               alphaActorId: 'team-lead',
               betaActorIds: ['architect-lead']
             },
-            'implemented model':
+            'implementation':
             {
               expectations: 
               [
@@ -395,7 +382,7 @@ module.exports =
               alphaActorId: 'team-lead',
               betaActorIds: ['domain-ambassador']
             },
-            'implemented documentation':
+            'documentation':
             {
               expectations: 
               [
@@ -410,14 +397,14 @@ module.exports =
               alphaActorId: 'team-lead',
               betaActorIds: ['technical-writer']
             },
-            'composed qa report':
+            'qa-report':
             {
               expectations: 
               [
                 {
                   reasons:
                   [
-                    'Express a QA report of the solution'
+                    'express a QA report of the solution'
                   ],
                   expert: 'qa'
                 }

@@ -3,11 +3,12 @@
  */
 class Manager
 {
-  constructor(schema, actor, persona)
+  constructor(schema, actor, persona, console)
   {
     this.schema   = schema
     this.actor    = actor
     this.persona  = persona
+    this.console  = console
   }
 
   async init()
@@ -15,14 +16,18 @@ class Manager
     const
       playbook    = await this.persona.getPlaybook(),
       project     = await this.createProject(playbook),
-      initMessage = await this.persona.init(project.id),
-      conclusion  = await this.startProject(project, initMessage)
+      directive   = await this.persona.getDirective(project.id),
+      conclusion  = await this.startProject(project, directive)
 
     // action loop - actor.act()
 
     return conclusion
   }
 
+  /**
+   * @param {object} playbook
+   * @param {string} projectId
+   */
   async createProject(playbook, projectId)
   {
     const
@@ -49,32 +54,52 @@ class Manager
       const meeting = playbook.meetings[meetingId]
       for(const expectation of meeting.expectations)
       {
-        expectation.reasons = expectation.reasons.map((content) => this.actor.composeTopic('user', content))
+        expectation.reasons   = expectation.reasons.map((content) => this.actor.composeTopic('user', content))
+        expectation.regarding = expectation.regarding || meetingId
       }
       meetings.push(meeting)
     }
 
-    return this.schema.compose('superduper-squad/schema/entity/project', { team, meetings, id })
+    this.console.log('......meetings:', meetings)
+
+    const project = this.schema.compose('superduper-squad/schema/entity/project', { team, meetings, id })
+
+    this.console.log('......project:', project)
+
+    return project
   }
   
-  async startProject(project, conclusion)
+  /**
+   * @param {SuperduperSquad.Schema.Entity.Project} project 
+   * @param {SuperduperSquad.Schema.Entity.Topic} directive 
+   * @returns 
+   */
+  async startProject(project, directive)
   {
     for(const meeting of project.meetings)
     {
-      console.log('project id:', project.id)
-      console.log('meeting:', meeting)
+      const alpha = await this.actor.findActor(project.id, meeting.alphaActorId)
 
-      conclusion = await this.actor.meet(project.id, meeting, conclusion)
+      await this.actor.meet(project.id, meeting, directive)
 
-      console.log('conclusion:', conclusion)
+      for(const expectation of meeting.expectations)
+      {
+        console.log(meeting)
+
+        const 
+          learned             = [ ...expectation.reasons, expectation.conclusion ],
+          feedback            = await this.persona.feedback(expectation.regarding, learned),
+          feedbackTopic       = this.actor.composeTopic('user', feedback),
+          feedbackConclusion  = await this.actor.conclude(alpha, [ ...learned, feedbackTopic ])
+
+        expectation.feedback            = feedback
+        expectation.feedbackConclusion  = feedbackConclusion
+      }
 
       throw new Error('TODO: chill a bit...')
-
-      const feedback = await this.persona.feedback(project.id, conclusion)
-      await this.actor.feedback(project.id, meeting, feedback)
     }
 
-    return conclusion
+    return conclusions
   }
 }
 

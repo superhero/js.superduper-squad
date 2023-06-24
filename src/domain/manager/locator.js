@@ -15,9 +15,10 @@ class ManagerLocator extends LocatorConstituent
     const
       actor   = this.locator.locate('superduper-squad/actor'),
       persona = this.locator.locate('superduper-squad/persona'),
+      console = this.locator.locate('core/console'),
       schema  = this.locator.locate('core/schema/composer')
 
-    return new Manager(schema, actor, persona)
+    return new Manager(schema, actor, persona, console)
   }
 }
 

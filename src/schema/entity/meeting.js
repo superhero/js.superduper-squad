@@ -7,7 +7,7 @@ const schema =
   'expectations':
   {
     'type'        : 'schema',
-    'schema'      : 'superduper-squad/schema/entity/reasoning',
+    'schema'      : 'superduper-squad/schema/entity/expectation',
     'collection'  : true
   },
   'alphaActorId':

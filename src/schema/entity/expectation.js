@@ -7,6 +7,7 @@ const schema =
   '@meta':
   {
     'extends'     : 'superduper-squad/schema/entity/reasoning',
+    'immutable'   : false
   },
   'expert':
   {
@@ -14,6 +15,10 @@ const schema =
     'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
     'description' : 'the id of the actor that is considered the expert of the expectation'
+  },
+  'regarding':
+  {
+    'type'        : 'string'
   },
   'conclusion':
   {
