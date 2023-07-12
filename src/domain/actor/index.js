@@ -14,9 +14,9 @@ class Actor
   /**
    * @param {string} projectId 
    * @param {SuperduperSquad.Schema.Entity.Meeting} meeting 
-   * @param {SuperduperSquad.Schema.Entity.Topic} directive
+   * @param {SuperduperSquad.Schema.Entity.Reasoning} reasoning
    */
-  async meet(projectId, meeting, directive)
+  async meet(projectId, meeting, reasoning)
   {
     const
       alpha = await this.findActor(projectId, meeting.alphaActorId),
@@ -29,7 +29,7 @@ class Actor
       for(const beta of betas)
       {
         const
-          conclusion  = await this.discuss(projectId, [ directive, ...expectation.reasons ], alpha, beta),
+          conclusion  = await this.discuss(projectId, [ ...reasoning.reasons, ...expectation.reasons ], alpha, beta),
           topic       = this.composeTopic('assistant', conclusion)
         
         expectationConclusionTopics.push(topic)
@@ -37,7 +37,7 @@ class Actor
 
       const
         concludeTopic = this.composeTopic('user', 'respond without introduction and conclusion'), // prologue or epilogue
-        conclusion    = await this.conclude(alpha, [ directive, ...expectation.reasons, ...expectationConclusionTopics, concludeTopic, ...expectation.reasons ])
+        conclusion    = await this.conclude(alpha, [ ...reasoning.reasons, ...expectation.reasons, ...expectationConclusionTopics, concludeTopic, ...expectation.reasons ])
 
       expectation.conclusion = this.composeTopic('assistant', conclusion)
     }

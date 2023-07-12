@@ -60,11 +60,7 @@ class Manager
       meetings.push(meeting)
     }
 
-    this.console.log('......meetings:', meetings)
-
     const project = this.schema.compose('superduper-squad/schema/entity/project', { team, meetings, id })
-
-    this.console.log('......project:', project)
 
     return project
   }
@@ -76,30 +72,31 @@ class Manager
    */
   async startProject(project, directive)
   {
+    project.reasoning = this.schema.compose('superduper-squad/schema/entity/reasoning', { resons:[ directive ]})
+
     for(const meeting of project.meetings)
     {
       const alpha = await this.actor.findActor(project.id, meeting.alphaActorId)
 
-      await this.actor.meet(project.id, meeting, directive)
+      await this.actor.meet(project.id, meeting, project.reasoning)
 
       for(const expectation of meeting.expectations)
       {
-        console.log(meeting)
+        console.log('meeting', meeting)
 
         const 
           learned             = [ ...expectation.reasons, expectation.conclusion ],
           feedback            = await this.persona.feedback(expectation.regarding, learned),
           feedbackTopic       = this.actor.composeTopic('user', feedback),
-          feedbackConclusion  = await this.actor.conclude(alpha, [ ...learned, feedbackTopic ])
+          feedbackConclusion  = await this.actor.conclude(alpha, [ ...learned, feedbackTopic ]),
+          feedbackAssistant   = this.actor.composeTopic('assistant', feedbackConclusion)
 
         expectation.feedback            = feedback
         expectation.feedbackConclusion  = feedbackConclusion
+
+        project.reasoning.reasons.push(feedbackAssistant)
       }
-
-      throw new Error('TODO: chill a bit...')
     }
-
-    return conclusions
   }
 }
 

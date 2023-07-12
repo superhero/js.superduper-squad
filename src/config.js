@@ -40,14 +40,6 @@ module.exports =
                 'You adopt domain driven design principles'
               ],
             },
-            'ba': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You are a business analyst'
-              ],
-            },
             'team-lead': 
             {
               team: [],
@@ -57,51 +49,13 @@ module.exports =
                 'You are team lead'
               ],
             },
-            'architect-lead': 
+            'architect': 
             {
-              team: 
-              [
-                'architect-api',
-                'architect-domain',
-                'architect-process',
-                'architect-infrastructure'
-              ],
+              team: [],
               indoctrination:
               [
+                'You are a software architect',
                 'You adopt domain driven design principles',
-                'You are the lead architect'
-              ]
-            },
-            'architect-api': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You are the api architect'
-              ]
-            },
-            'architect-domain': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You are the domain architect'
-              ]
-            },
-            'architect-process': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You are the the process architect'
-              ]
-            },
-            'architect-infrastructure': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You are the infrastructure architect'
               ]
             },
             // ...
@@ -113,8 +67,7 @@ module.exports =
                 'backend-domain',
                 'backend-process',
                 'backend-infrastructure',
-                'dev-ops',
-                'dba',
+                'dev-ops'
               ],
               indoctrination:
               [
@@ -154,155 +107,35 @@ module.exports =
                 'You are a node.js developer'
               ]
             },
-            // dev-ops...
             'dev-ops': 
             {
-              team: 
-              [
-                'dev-ops-docker',
-                'dev-ops-monitoring'
-              ],
-              indoctrination:
-              [
-                'You are a DevOps developer'
-              ]
-            },
-            'dev-ops-docker': 
-            {
               team: [],
               indoctrination:
               [
-                'You work with docker swarm'
-              ]
-            },
-            'dev-ops-monitoring': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You do monitoring'
-              ]
-            },
-            // dba...
-            'dba': 
-            {
-              team: 
-              [
-                'dba-writer',
-                'dba-reader'
-              ],
-              indoctrination:
-              [
-                'You adopt domain driven design principles',
-                'You are a database administrator (DBA)'
-              ]
-            },
-            'dba-writer': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You optimize write operations',
-                'You work with redis'
-              ]
-            },
-            'dba-reader': 
-            {
-              team: [],
-              indoctrination:
-              [
-                'You optimize read operations',
-                'You work with MySql'
+                'You are the dev-ops',
+                'You write Dockerfiles for a living',
               ]
             },
             'technical-writer': 
             {
-              team: 
-              [
-                'technical-writer-swaggor',
-                'technical-writer-doctype',
-              ],
+              team: [],
               indoctrination:
               [
                 'You adopt domain driven design principles',
                 'You are a technical writer'
               ]
             },
-            'technical-writer-swaggor':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work with swaggor'
-              ]
-            },
-            'technical-writer-doctype':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work with doctype'
-              ]
-            },
             'qa':
             {
-              team: 
-              [
-                'qa-api',
-                'qa-domain',
-                'qa-process',
-                'qa-infrastructure',
-                'qa-documentation'
-              ],
+              team: [],
               indoctrination:
               [
                 'You work as QA'
               ]
-            },
-            'qa-api':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work as QA in the API layer'
-              ]
-            },
-            'qa-domain':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work as QA in the domain layer'
-              ]
-            },
-            'qa-process':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work as QA in the process layer'
-              ]
-            },
-            'qa-infrastructure':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work as QA in the infrastructure layer'
-              ]
-            },
-            'qa-documentation':
-            {
-              team: [],
-              indoctrination:
-              [
-                'You work as QA with documentation'
-              ]
-            },
+            }
           },
           meetings:
           {
-            // gather project specification
             // ...
             'specifications':
             {
@@ -311,13 +144,12 @@ module.exports =
                 {
                   reasons:
                   [
-                    'compose specifications for the project'
-                  ],
-                  expert: 'ba'
+                    'compose specifications for the project. each specification should be defined by different use cases; that describes the functionality of the specification'
+                  ]
                 }
               ],
-              alphaActorId: 'ba',
-              betaActorIds: ['team-lead']
+              alphaActorId: 'team-lead',
+              betaActorIds: ['architect']
             },
             'technical-approach':
             {
@@ -326,13 +158,12 @@ module.exports =
                 {
                   reasons:
                   [
-                    'sugest a technical approach'
-                  ],
-                  expert: 'architect-lead'
+                    'suggest a technical approach to the previously defined specifications'
+                  ]
                 }
               ],
-              alphaActorId: 'ba',
-              betaActorIds: ['team-lead', 'architect-lead']
+              alphaActorId: 'team-lead',
+              betaActorIds: ['architect']
             },
             'story-book':
             {
@@ -341,32 +172,29 @@ module.exports =
                 {
                   reasons:
                   [
-                    'compose a story book',
-                    'each story should reflect different use cases described by the specifications'
-                  ],
-                  expert: 'team-lead'
+                    'compose a story book. each story should reflect different use cases described by the specifications, correlated with the technical approach'
+                  ]
                 }
               ],
-              alphaActorId: 'ba',
-              betaActorIds: ['team-lead', 'architect-lead']
+              alphaActorId: 'team-lead',
+              betaActorIds: ['architect']
             },
-            // distribute and perform work
-            // ...
-            'composed-model':
+            'testplan':
             {
               expectations: 
               [
                 {
                   reasons:
                   [
-                    'compose the interfaces of the solution'
-                  ],
-                  expert: 'architect-lead'
+                    'each test case should have an expected result, that reflects the use case described by the story book. express a testplan based on the story book. the testplan should be composed from different test cases, that reflect the use cases described by the story book'
+                  ]
                 }
               ],
               alphaActorId: 'team-lead',
-              betaActorIds: ['architect-lead']
+              betaActorIds: ['qa']
             },
+            // distribute and perform work
+            // ...
             'implementation':
             {
               expectations: 
@@ -374,9 +202,8 @@ module.exports =
                 {
                   reasons:
                   [
-                    'implement a solution based on the composed interfaces'
-                  ],
-                  expert: 'domain-ambassador'
+                    'write code for the solution that fullfills the use cases expressed in the testplan, based on the story book and the previously described technical approach and specifications'
+                  ]
                 }
               ],
               alphaActorId: 'team-lead',
@@ -389,28 +216,12 @@ module.exports =
                 {
                   reasons:
                   [
-                    'implement the documentation of the solution'
-                  ],
-                  expert: 'technical-writer'
+                    'write documentation to the solution based on the specifications, story book and technical approach'
+                  ]
                 }
               ],
               alphaActorId: 'team-lead',
               betaActorIds: ['technical-writer']
-            },
-            'qa-report':
-            {
-              expectations: 
-              [
-                {
-                  reasons:
-                  [
-                    'express a QA report of the solution'
-                  ],
-                  expert: 'qa'
-                }
-              ],
-              alphaActorId: 'team-lead',
-              betaActorIds: ['qa']
             }
           }
         }
