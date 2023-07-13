@@ -1,5 +1,3 @@
-const { regarding } = require("./schema/entity/expectation");
-
 /**
  * @namespace SuperduperSquad
  */
@@ -32,30 +30,36 @@ module.exports =
         {
           team:
           {
-            'persona': 
+            'product-owner':
             {
-              team: [],
               indoctrination:
               [
-                'You adopt domain driven design principles'
-              ],
+                'You are the product owner',
+                'A user story is a simple description of a feature as seen by the end-user',
+                'Write user stories like this: "As a [type of user], I want [an action] so that [a benefit]".'
+              ]
             },
             'team-lead': 
             {
-              team: [],
               indoctrination:
               [
-                'You adopt domain driven design principles',
-                'You are team lead'
-              ],
+                'You are team lead',
+                'Write specifications like this: "Given [some context] When [some event] Then [some outcome]".',
+              ]
             },
             'architect': 
             {
-              team: [],
               indoctrination:
               [
                 'You are a software architect',
                 'You adopt domain driven design principles',
+                'You belive in a stupid frontend, less logic in the frontend is a better frontend',
+                'You work with node.js in the backend',
+                'You work with the Superhero Core framework, where the more popular choice is express.js',
+                'You do not want to work with other dependecies than what is offered by the Superhero Tool Chain',
+                'If it\'s necessery with dependencies, you prefer to use the most stable and mature ones, but they must be focused on solving a specific responsibility',
+                'You work with redis streams as a message broker',
+                'You work with microservice architecture in a docker swarm envirement'
               ]
             },
             // ...
@@ -77,7 +81,6 @@ module.exports =
             },
             'backend-api': 
             {
-              team: [],
               indoctrination:
               [
                 'You are a node.js developer'
@@ -85,7 +88,6 @@ module.exports =
             },
             'backend-domain': 
             {
-              team: [],
               indoctrination:
               [
                 'You are a node.js developer'
@@ -93,7 +95,6 @@ module.exports =
             },
             'backend-process': 
             {
-              team: [],
               indoctrination:
               [
                 'You are a node.js developer'
@@ -101,7 +102,6 @@ module.exports =
             },
             'backend-infrastructure': 
             {
-              team: [],
               indoctrination:
               [
                 'You are a node.js developer'
@@ -109,7 +109,6 @@ module.exports =
             },
             'dev-ops': 
             {
-              team: [],
               indoctrination:
               [
                 'You are the dev-ops',
@@ -118,7 +117,6 @@ module.exports =
             },
             'technical-writer': 
             {
-              team: [],
               indoctrination:
               [
                 'You adopt domain driven design principles',
@@ -127,7 +125,6 @@ module.exports =
             },
             'qa':
             {
-              team: [],
               indoctrination:
               [
                 'You work as QA'
@@ -144,12 +141,11 @@ module.exports =
                 {
                   reasons:
                   [
-                    'compose specifications for the project. each specification should be defined by different use cases; that describes the functionality of the specification'
+                    'compose specifications for the project' // . each specification should be defined by different use cases; that describes the functionality of the specification
                   ]
                 }
               ],
-              alphaActorId: 'team-lead',
-              betaActorIds: ['architect']
+              alphaActorId: 'team-lead'
             },
             'technical-approach':
             {
@@ -158,12 +154,11 @@ module.exports =
                 {
                   reasons:
                   [
-                    'suggest a technical approach to the previously defined specifications'
+                    'suggest the technical stack to the solution based on the previously defined specifications'
                   ]
                 }
               ],
-              alphaActorId: 'team-lead',
-              betaActorIds: ['architect']
+              alphaActorId: 'architect'
             },
             'story-book':
             {
@@ -172,12 +167,11 @@ module.exports =
                 {
                   reasons:
                   [
-                    'compose a story book. each story should reflect different use cases described by the specifications, correlated with the technical approach'
+                    'compose user stories that reflects the different use cases described by the specifications, correlated with the technical approach'
                   ]
                 }
               ],
-              alphaActorId: 'team-lead',
-              betaActorIds: ['architect']
+              alphaActorId: 'product-owner'
             },
             'testplan':
             {
@@ -190,8 +184,7 @@ module.exports =
                   ]
                 }
               ],
-              alphaActorId: 'team-lead',
-              betaActorIds: ['qa']
+              alphaActorId: 'qa'
             },
             // distribute and perform work
             // ...

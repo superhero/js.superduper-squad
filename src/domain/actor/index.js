@@ -18,6 +18,8 @@ class Actor
    */
   async meet(projectId, meeting, reasoning)
   {
+    console.log('thinking...')
+
     const
       alpha = await this.findActor(projectId, meeting.alphaActorId),
       betas = await Promise.all(meeting.betaActorIds.map((actorId) => this.findActor(projectId, actorId)))
@@ -128,7 +130,7 @@ class Actor
    */
   async reason(projectId, alpha, reasons)
   {
-    console.log('reasoning... ')
+    console.log('reasoning...')
 
     const 
       team        = await Promise.all(alpha.team.map((actorId) => this.findActor(projectId, actorId))),

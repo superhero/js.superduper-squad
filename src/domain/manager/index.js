@@ -72,7 +72,7 @@ class Manager
    */
   async startProject(project, directive)
   {
-    project.reasoning = this.schema.compose('superduper-squad/schema/entity/reasoning', { resons:[ directive ]})
+    project.reasoning = this.schema.compose('superduper-squad/schema/entity/reasoning', { reasons:[ directive ]})
 
     for(const meeting of project.meetings)
     {
@@ -82,12 +82,10 @@ class Manager
 
       for(const expectation of meeting.expectations)
       {
-        console.log('meeting', meeting)
-
         const 
           learned             = [ ...expectation.reasons, expectation.conclusion ],
           feedback            = await this.persona.feedback(expectation.regarding, learned),
-          feedbackTopic       = this.actor.composeTopic('user', feedback),
+          feedbackTopic       = this.actor.composeTopic('user', feedback + '\n\n' + '(repeat your last message if everything was fine)'),
           feedbackConclusion  = await this.actor.conclude(alpha, [ ...learned, feedbackTopic ]),
           feedbackAssistant   = this.actor.composeTopic('assistant', feedbackConclusion)
 

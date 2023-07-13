@@ -21,7 +21,8 @@ const schema =
     'type'        : 'schema',
     'schema'      : 'superduper-squad/schema/entity/actor',
     'trait'       : 'id',
-    'collection'  : true
+    'collection'  : true,
+    'default'     : []
   }
 }
 

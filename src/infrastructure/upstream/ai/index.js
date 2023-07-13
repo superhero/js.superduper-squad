@@ -32,7 +32,7 @@ class Ai
    * 
    * @param {array<SuperduperSquad.Schema.Entity.Topic>} messages 
    */
-  async conclude(messages, { model='gpt-3.5-turbo', max_tokens=16000, temperature=0.9, top_p=0.5, frequency_penalty=0, presence_penalty=0 })
+  async conclude(messages, { model='gpt-3.5-turbo', max_tokens=2000, temperature=0.9, top_p=0.5, frequency_penalty=0, presence_penalty=0 } = {})
   {
     const
       url  = '/v1/chat/completions',

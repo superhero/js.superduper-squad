@@ -37,7 +37,8 @@ class Persona
   async feedback(regarding, learned)
   {
     await this.cli.write('---')
-    await this.cli.write('Meetings regarding the ' + regarding)
+    await this.cli.write('')
+    await this.cli.write('Meetings where held in regards to the ' + regarding)
 
     for(const topic of learned)
     {
